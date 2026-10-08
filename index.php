@@ -1,13 +1,9 @@
 <?php
-require_once "conexao.php";
 
-$conexao = Conexao::conectar();
-$sql = "SELECT * FROM pessoa";
-$stm = $conexao->prepare($sql);
-$stm->execute();
-$lista = $stm->fetchAll();
+require_once "pessoa.php";
 
-var_dump($lista);
+$lista = Pessoa::listar();
+
 ?>
 
 <!DOCTYPE html>
