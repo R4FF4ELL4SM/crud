@@ -1,11 +1,3 @@
-<?php
-
-require_once "pessoa.php";
-
-$lista = Pessoa::listar();
-
-?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -22,21 +14,24 @@ $lista = Pessoa::listar();
 </head>
 <body>
     <section class="m-3">
-        <table class="table table-striped table-hover">
-            <tr>
-                <th>Nome</th>
-                <th colspan="2">
-                    <a href="pessoa_add_view.php">Adicionar</a>
-                </th>
-            </tr>
-            <?php foreach($lista as $pessoa): ?>
-            <tr>
-                <td><?= $pessoa['nome']; ?></td>
-                <td>Editar</td>
-                <td>Deletar</td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
+        <a href="index.php">Voltar</a>
     </section>
+
+    <section class="d-flex justify-content-center"> 
+        <section class="m-3 w-50 d-flex justify-content-center">
+            <form action="pessoa_add_controler.php" method="POST">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome">
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                </div>
+            </form>
+        </section>
+    </section>
+
+    
 </body>
 </html>
