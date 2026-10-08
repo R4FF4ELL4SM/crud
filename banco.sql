@@ -6,3 +6,11 @@ CREATE TABLE pessoa(
     id_pessoa INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL
 );
+
+-- seeds
+INSERT INTO pessoa (nome) VALUES
+('João'),
+('Maria'),
+('Pedro'),
+('Ana'),
+('Lucas');
