@@ -26,14 +26,21 @@ $lista = Pessoa::listar();
             <tr>
                 <th>Nome</th>
                 <th colspan="2">
-                    <a href="pessoa_add_view.php">Adicionar</a>
+                    <a href="pessoa_add_view.php" class="btn btn-success"><span class="material-symbols-outlined">add</span>Adicionar</a>
                 </th>
             </tr>
             <?php foreach($lista as $pessoa): ?>
             <tr>
                 <td><?= $pessoa['nome']; ?></td>
-                <td>Editar</td>
-                <td>Deletar</td>
+                <td>
+                    <a href="pessoa_edit_view.php?id=<?= $pessoa['id_pessoa']; ?>" class="btn btn-warning"><span class="material-symbols-outlined">edit</span>Editar</a>
+                </td>
+                <td>
+                    <form action="pessoa_del_controler.php" method="post" onubmit="return confirm('Tem certeza que deseja deletar o registro?');">
+                        <input type="hidden" name="id" value="<?= $pessoa['id_pessoa']; ?>">
+                        <button type="submit" class="btn btn-danger"><span class="material-symbols-outlined">delete</span>Deletar</button>
+                    </form>
+                </td>
             </tr>
             <?php endforeach; ?>
         </table>

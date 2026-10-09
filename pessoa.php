@@ -6,6 +6,13 @@ class Pessoa
     private $id_pessoa;
     private $nome;
 
+    public function __construct($id = false) {
+        if ($id) {
+            $this->id_pessoa = $id;
+            $this->carregar();
+        }
+    }
+
     public function getNome() {
         return $this->nome;
     }
@@ -14,8 +21,19 @@ class Pessoa
         $this->nome = $nome;
     }
 
-    public function getIdPessoa() {
+    public function getId() {
         return $this->id_pessoa;
+    }
+
+    public function carregar(){
+        $conecao = Conexao::conectar();
+        $sql = "SELECT * FROM pessoa WHERE id_pessoa = :id";
+        $stmt = $conecao->prepare($sql);
+        $stmt->bindValue(':id', $this->getId());
+        $stmt->execute();
+        $resultado = $stmt->fetch();
+
+        $this->setNome($resultado['nome']);
     }
 
     public function criar() {
@@ -40,6 +58,31 @@ class Pessoa
             $stm->execute();
             $lista = $stm->fetchAll();
             return $lista;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function atualizar() {
+        try {
+            $conexao = Conexao::conectar();
+            $sql = "UPDATE pessoa SET nome = :nome WHERE id_pessoa = :id";
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(':nome', $this->getNome());
+            $stmt->bindValue(':id', $this->getId());
+            $stmt->execute();
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function deletar() {
+        try {
+            $conexao = Conexao::conectar();
+            $sql = "DELETE FROM pessoa WHERE id_pessoa = :id";
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(':id', $this->getId());
+            $stmt->execute();
         } catch(PDOException $e) {
             echo $e->getMessage();
         }

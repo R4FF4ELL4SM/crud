@@ -1,3 +1,13 @@
+<?php
+    require_once 'pessoa.php';
+
+    $id = $_GET['id'];
+
+    $pessoa = new Pessoa($id);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -19,16 +29,16 @@
 
     <section class="d-flex justify-content-center"> 
         <section class="m-3 w-50 d-flex justify-content-center">
-            <form action="pessoa_add_controler.php" method="post">
-                <input type="hidden" name="id" value="<?= $id; ?>">
+            <form action="pessoa_edit_controler.php" method="post">
+                <input type="hidden" name="id" value="<?= $pessoa->getId(); ?>">
 
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome">
+                    <input type="text" class="form-control" id="nome" name="nome" value="<?= $pessoa->getNome(); ?>">
                 </div>
 
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                    <button type="submit" class="btn btn-primary">Atualizar</button>
                 </div>
             </form>
         </section>
