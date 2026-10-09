@@ -14,17 +14,22 @@
 </head>
 <body>
     <section class="m-3">
-        <a href="index.php">Voltar</a>
+        <a href="/CRUD_YT/index.php">Voltar</a>
     </section>
 
     <section class="d-flex justify-content-center"> 
         <section class="m-3 w-50 d-flex justify-content-center">
-            <form action="pessoa_add_controler.php" method="post">
+            <form action="/CRUD_YT/controlers/pessoa_add_controler.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?= $id; ?>">
 
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome</label>
                     <input type="text" class="form-control" id="nome" name="nome">
+                </div>
+
+                <div class="mb-3">
+                    <label for="foto" class="form-label">Foto</label>
+                    <input type="file" class="form-control" id="foto" name="foto">
                 </div>
 
                 <div class="mb-3">

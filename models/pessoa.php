@@ -1,10 +1,11 @@
 <?php
-require_once "conexao.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/CRUD_YT/configs/conexao.php";
 
 class Pessoa
 {
     private $id_pessoa;
     private $nome;
+    private $foto;
 
     public function __construct($id = false) {
         if ($id) {
@@ -25,6 +26,14 @@ class Pessoa
         return $this->id_pessoa;
     }
 
+    public function getFoto() {
+        return $this->foto;
+    }
+
+    public function setFoto($foto) {
+        $this->foto = $foto;
+    }
+
     public function carregar(){
         $conecao = Conexao::conectar();
         $sql = "SELECT * FROM pessoa WHERE id_pessoa = :id";
@@ -34,14 +43,16 @@ class Pessoa
         $resultado = $stmt->fetch();
 
         $this->setNome($resultado['nome']);
+        $this->setFoto($resultado['foto']);
     }
 
     public function criar() {
         try {
             $conexao = Conexao::conectar();
-            $sql = "INSERT INTO pessoa (nome) VALUES (:nome)";
+            $sql = "INSERT INTO pessoa (nome, foto) VALUES (:nome, :foto)";
             $stmt = $conexao->prepare($sql);
             $stmt->bindValue(':nome', $this->getNome());
+            $stmt->bindValue(':foto', $this->getFoto());
             $stmt->execute();
 
         } catch(PDOException $e) {
@@ -66,9 +77,10 @@ class Pessoa
     public function atualizar() {
         try {
             $conexao = Conexao::conectar();
-            $sql = "UPDATE pessoa SET nome = :nome WHERE id_pessoa = :id";
+            $sql = "UPDATE pessoa SET nome = :nome, foto = :foto WHERE id_pessoa = :id";
             $stmt = $conexao->prepare($sql);
             $stmt->bindValue(':nome', $this->getNome());
+            $stmt->bindValue(':foto', $this->getFoto());
             $stmt->bindValue(':id', $this->getId());
             $stmt->execute();
         } catch(PDOException $e) {
